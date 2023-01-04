@@ -4,3 +4,4 @@ gradio_queue.db
 questions.json
 __pycache__/app.cpython-38.pyc
 __pycache__/app.cpython-39.pyc
+__pycache__/home.cpython-38.pyc
