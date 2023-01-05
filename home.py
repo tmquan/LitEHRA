@@ -1,4 +1,4 @@
-# app.py
+# home.py
 import lightning as L
 import lightning.app.frontend as frontend
 import streamlit as st
@@ -31,15 +31,17 @@ def home_app(lightning_app_state):
     listings = parse_dir(TASK_DIR)
 
     # st.sidebar.header("Navigation")
-    with st.sidebar:
-        st.title("Navigation")
-        for domain in listings["dirs"]:
-            st.header("\t"+domain["root"].replace("_", " ").upper())
-            for task in domain["dirs"]:
-                # st.subheader("\t\t"+task["root"].replace("_", " ").upper())
-                with st.expander("\t\t"+task["root"].replace("_", " ").upper()):
-                    for subtask in task["dirs"]:
-                        st.caption("\t\t\t"+subtask["root"].replace("_", " ").upper())
+    st.sidebar.title("Navigation")
+    for domain in listings["dirs"]:
+        st.sidebar.header("\t"+domain["root"].replace("_", " ").upper())
+        for task in domain["dirs"]:
+            # st.sidebar.subheader("\t\t"+task["root"].replace("_", " ").upper())
+            st.sidebar.expander("\t\t"+task["root"].replace("_", " ").upper()):
+                for subtask in task["dirs"]:
+                    st.sidebar.caption("\t\t\t"+subtask["root"].replace("_", " ").upper())
+                    if subtask["files"] is not None:
+                        from tasks.natural_language_processing.extractions.question_answering.app import app
+                        app()
 
 
 class LitStreamlit(L.LightningFlow):
